@@ -1,0 +1,141 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #e8edf3;
+    --progress-size: 30%;
+    --animation-flag: paused;
+    --hidden-flag: visible;
+}
+
+.body {
+    background-color: #e8edf3;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5em;
+    width: 568px;
+    height: 320px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        height: 568px;
+        width: 320px;
+    }
+}
+
+.progress {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(var(--primary-color) 0% var(--progress-size),
+            var(--secondary-color) var(--progress-size) 100%);
+    position: relative;
+    animation: rotate 2.6s linear infinite;
+    animation-play-state: var(--animation-flag);
+    visibility: var(--hidden-flag);
+}
+
+.progress::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    background: white;
+    border-radius: 50%;
+}
+
+.progress-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.label {
+    font-weight: 700;
+}
+
+.progress-input {
+    box-sizing: border-box;
+    width: 48px;
+    height: 30px;
+    border-radius: 34px;
+    border: 2px solid #000;
+    text-align: center;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 30px;
+    background-color: var(--secondary-color);
+    border-radius: 34px;
+    transition: background-color 0.3s;
+    flex-shrink: 0;
+}
+
+.checkmark::before {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    top: 2px;
+    left: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.checkbox:checked+.checkmark {
+    background-color: var(--primary-color);
+}
+
+.checkbox:checked+.checkmark::before {
+    transform: translateX(17px);
+}
+
+.checkbox:focus-visible+.checkmark {
+    outline: 2px solid #0066ff;
+    outline-offset: 3px;
+}
+
+.progress-input::-webkit-inner-spin-button,
+.progress-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.progress-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
